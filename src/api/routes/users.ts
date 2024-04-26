@@ -1,3 +1,5 @@
+import UserService from '@app/services/UserService';
+import Container from 'typedi';
 import { Route } from '../router';
 
 const users: Route = (fastify, options) => {
@@ -8,7 +10,13 @@ const users: Route = (fastify, options) => {
   });
 
   fastify.post(`${prefix}/users`, async (request, reply) => {
-    return reply.code(201).send({ user: {} });
+    const userService = Container.get(UserService);
+    const user = await userService.create({
+      username: 'test',
+      password: '123',
+      nickname: '테스터',
+    });
+    return reply.code(201).send({ user });
   });
 };
 

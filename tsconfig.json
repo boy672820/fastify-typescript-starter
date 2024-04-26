@@ -34,10 +34,14 @@
     "paths": {
       "@config/*": ["src/config/*"],
       "@config": ["src/config"],
-      "@common/*": ["src/common/*"],
-      "@common": ["src/common"],
-      "@services/*": ["src/services/*"],
-      "@services": ["src/services"]
+      "@lib/*": ["src/lib/*"],
+      "@lib": ["src/lib"],
+      "@domain/*": ["src/domain/*"],
+      "@domain": ["src/domain"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@interfaces": ["src/interfaces"],
+      "@app/*": ["src/applications/*"],
+      "@app": ["src/applications"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */

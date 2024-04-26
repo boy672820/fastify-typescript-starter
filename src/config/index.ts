@@ -2,14 +2,23 @@ import validateConfig from './validateConfig';
 import dotenv from 'dotenv';
 
 const path = `.env.${process.env.NODE_ENV || 'local'}`;
-console.log(path);
 
 dotenv.config({ path });
 
-export { validateConfig };
+interface Config {
+  port: number;
+  databaseUrl: string;
+  isProduction: boolean;
+  isDevelopment: boolean;
+}
 
-export default {
-  port: parseInt(process.env.PORT || '3000', 10),
+const config: Config = {
+  port: parseInt(process.env.PORT as string, 10),
+  databaseUrl: process.env.DATABASE_URL as string,
   isProduction: process.env.NODE_ENV === 'production',
   isDevelopment: process.env.NODE_ENV === 'development',
-} as const;
+};
+
+export { validateConfig };
+
+export default config;

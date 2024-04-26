@@ -1,11 +1,22 @@
-import { IsNumberString, validate } from 'class-validator';
+import fp from 'fastify-plugin';
+import {
+  IsNotEmpty,
+  IsNumberString,
+  IsString,
+  validate,
+} from 'class-validator';
 
 class EnvironmentVariables {
   @IsNumberString()
+  @IsNotEmpty()
   PORT!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  DATABASE_URL!: string;
 }
 
-export default function validateConfig() {
+function validateEnv() {
   const env = new EnvironmentVariables();
 
   for (const key in process.env) {
@@ -20,3 +31,8 @@ export default function validateConfig() {
     }
   });
 }
+
+export default fp((_, __, next) => {
+  validateEnv();
+  next();
+});
