@@ -3,6 +3,7 @@ import { Inject, Service } from 'typedi';
 import InjectionTokens from '../infra/InjectionTokens';
 import type { UserCreateInput } from '@interfaces';
 import type { Repository } from '../infra/interfaces';
+import { ConflictException } from '../../lib/errors';
 
 @Service()
 export default class UserService {

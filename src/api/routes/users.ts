@@ -1,3 +1,4 @@
+import { ResponseEntity } from '@lib/types';
 import UserService from '@app/services/UserService';
 import Container from 'typedi';
 import { Route } from '../router';
@@ -11,7 +12,7 @@ const users: Route = (_fastify, options) => {
   fastify.get(`${prefix}/users`, async (_, reply) => {
     const userService = Container.get(UserService);
     const users = await userService.findAll();
-    return reply.code(200).send({ users });
+    return reply.code(200).send(ResponseEntity.OkWithData(users));
   });
 
   fastify.post(
