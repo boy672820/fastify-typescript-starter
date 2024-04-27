@@ -1,7 +1,13 @@
 import 'reflect-metadata';
 import config from '@config';
 import fastify from 'fastify';
-import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
+import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUi from '@fastify/swagger-ui';
+import {
+  serializerCompiler,
+  validatorCompiler,
+  jsonSchemaTransform,
+} from 'fastify-type-provider-zod';
 import loaders from './loaders';
 import { AppOptions } from './loaders/fastify';
 
@@ -9,7 +15,33 @@ const options: AppOptions = {
   prefix: '/api/v1',
 };
 
-const server = fastify().withTypeProvider<TypeBoxTypeProvider>();
+const server = fastify();
+
+server.setValidatorCompiler(validatorCompiler);
+server.setSerializerCompiler(serializerCompiler);
+
+server.register(fastifySwagger, {
+  openapi: {
+    openapi: '3.0.0',
+    info: {
+      title: 'fastify-typescript-starter',
+      description: 'Fastify for Typescript starter',
+      version: '1.0.0',
+    },
+    tags: [
+      { name: 'health', description: 'Health check' },
+      {
+        name: 'users',
+        description: 'User management',
+      },
+    ],
+  },
+  transform: jsonSchemaTransform,
+});
+server.register(fastifySwaggerUi, {
+  routePrefix: '/docs',
+  uiConfig: { docExpansion: 'full', deepLinking: false },
+});
 
 async function main() {
   await loaders(server, options);
@@ -17,4 +49,7 @@ async function main() {
   console.log(`🐆 Server listening at ${address}`);
 }
 
-main();
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

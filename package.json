@@ -8,24 +8,24 @@
     "build": "NODE_ENV=production webpack",
     "dev": "concurrently \"NODE_ENV=development webpack --watch\" \"sleep 1 && nodemon\"",
     "lint": "eslint . --ext .ts",
-    "start": "node dist/index.js"
+    "start": "node dist/main.js"
   },
   "dependencies": {
     "@fastify/swagger": "^8.14.0",
     "@fastify/swagger-ui": "^3.0.0",
-    "@fastify/type-provider-typebox": "^4.0.0",
     "@js-joda/core": "^5.6.2",
-    "@sinclair/typebox": "^0.32.25",
     "bcrypt": "^5.1.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
     "fastify-plugin": "^4.5.1",
+    "fastify-type-provider-zod": "^1.1.9",
     "lodash": "^4.17.21",
     "mongoose": "^8.3.2",
     "reflect-metadata": "^0.2.2",
     "typedi": "^0.10.0",
-    "winston": "^3.13.0"
+    "winston": "^3.13.0",
+    "zod": "^3.23.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -45,5 +45,8 @@
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-node-externals": "^3.0.0"
+  },
+  "resolutions": {
+    "string-width": "^4.2.0"
   }
 }

@@ -11,6 +11,10 @@ export default class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
+  async findAll(): Promise<User[]> {
+    return [];
+  }
+
   async create(input: UserCreateInput): Promise<User> {
     const { username, password, nickname } = input;
     const user = User.create({ username, password, nickname });
