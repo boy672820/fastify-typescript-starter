@@ -12,7 +12,7 @@ const users: Route = (_fastify, options) => {
   fastify.get(`${prefix}/users`, async (_, reply) => {
     const userService = Container.get(UserService);
     const users = await userService.findAll();
-    return reply.code(200).send(ResponseEntity.OkWithData(users));
+    return reply.code(200).send(ResponseEntity.OK_WITH_DATA('', { users }));
   });
 
   fastify.post(
@@ -26,7 +26,9 @@ const users: Route = (_fastify, options) => {
         password: data.password,
         nickname: data?.nickname,
       });
-      return reply.code(201).send({ user });
+      return reply
+        .code(201)
+        .send(ResponseEntity.OK_WITH_DATA('User created', { user }));
     },
   );
 };

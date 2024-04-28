@@ -11,13 +11,15 @@ export default class UserService {
   ) {}
 
   async findAll(): Promise<User[]> {
-    return [];
+    const users = await this.userRepository.findAll();
+    return users;
   }
 
   async create(input: UserCreateInput): Promise<User> {
     const { username, password, nickname } = input;
     const user = User.create({ username, password, nickname });
     await this.userRepository.create(user);
+    delete (user as Partial<Pick<User, 'password'>>).password;
     return user;
   }
 }

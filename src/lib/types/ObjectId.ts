@@ -1,13 +1,10 @@
 import mongoose from 'mongoose';
 
 export default class ObjectId {
-  private objectId: mongoose.Types.ObjectId;
+  static create = () => new ObjectId(new mongoose.Types.ObjectId());
+  static from = (objectId: mongoose.Types.ObjectId) => new ObjectId(objectId);
 
-  static create = () => new ObjectId();
-
-  constructor() {
-    this.objectId = new mongoose.Types.ObjectId();
-  }
+  constructor(private objectId: mongoose.Types.ObjectId) {}
 
   getObjectId() {
     return this.objectId;

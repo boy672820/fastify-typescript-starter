@@ -24,19 +24,23 @@ export default class ResponseEntity<T>
     return new ResponseEntity<null>(ResponseStatus.Ok, '', null);
   }
 
-  static OkWithData<T>(data: T): ResponseEntity<T> {
-    return new ResponseEntity<T>(ResponseStatus.Ok, '', data);
+  static OK_WITH_MESSAGE(message: string): ResponseEntity<null> {
+    return new ResponseEntity<null>(ResponseStatus.Ok, message, null);
   }
 
-  static Error(): ResponseEntity<null> {
+  static OK_WITH_DATA<T>(message: string, data: T): ResponseEntity<T> {
+    return new ResponseEntity<T>(ResponseStatus.Ok, message, data);
+  }
+
+  static ERROR(): ResponseEntity<null> {
     return new ResponseEntity<null>(ResponseStatus.Error, '', null);
   }
 
-  static ErrorWithMessage(message: string): ResponseEntity<null> {
+  static ERROR_WITH_MESSAGE(message: string): ResponseEntity<null> {
     return new ResponseEntity<null>(ResponseStatus.Error, message, null);
   }
 
-  static ErrorWithData<T>(message: string, data: T): ResponseEntity<T> {
+  static ERROR_WITH_DATA<T>(message: string, data: T): ResponseEntity<T> {
     return new ResponseEntity<T>(ResponseStatus.Error, message, data);
   }
 

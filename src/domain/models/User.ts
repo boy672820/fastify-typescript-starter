@@ -33,5 +33,17 @@ export default class User implements UserProps {
     return user;
   }
 
+  static from(props: UserProps) {
+    const user = new User();
+    user.id = props.id;
+    user.username = props.username;
+    user.password = props.password;
+    user.nickname = props.nickname;
+    user.role = props.role;
+    user.createdDate = props.createdDate;
+    user.updatedDate = props.updatedDate;
+    return user;
+  }
+
   getId = () => this.id.getObjectId();
 }
