@@ -1,4 +1,4 @@
-import { ResponseEntity } from '@lib/types';
+import { ResponseEntity } from '@lib/responses';
 import UserService from '@app/services/UserService';
 import Container from 'typedi';
 import { Route } from '../router';

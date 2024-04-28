@@ -14,7 +14,8 @@ module.exports = {
   devtool:
     process.env.NODE_ENV === 'production'
       ? false
-      : 'eval-cheap-module-source-map',
+      // : 'eval-cheap-module-source-map',
+      : 'source-map',
   module: {
     rules: [
       {

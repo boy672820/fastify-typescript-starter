@@ -8,6 +8,7 @@
     "build:dev": "NODE_ENV=development webpack",
     "build": "NODE_ENV=production webpack",
     "dev": "concurrently \"NODE_ENV=development webpack --watch\" \"sleep 1 && nodemon\"",
+    "debug": "concurrently \"NODE_ENV=development webpack --watch\" \"sleep 1 && nodemon --inspect\"",
     "lint": "eslint . --ext .ts",
     "start": "node dist/main.js"
   },
