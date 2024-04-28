@@ -1,9 +1,7 @@
 import { User } from '@domain/models';
 import { Inject, Service } from 'typedi';
-import InjectionTokens from '../infra/InjectionTokens';
-import type { UserCreateInput } from '@interfaces';
-import type { Repository } from '../infra/interfaces';
-import { ConflictException } from '../../lib/errors';
+import InjectionTokens from '../../infra/InjectionTokens';
+import type { Repository, UserCreateInput } from '@interfaces';
 
 @Service()
 export default class UserService {

@@ -3,7 +3,7 @@ import { Inject, Service } from 'typedi';
 import { Model } from 'mongoose';
 import { User } from '../models';
 import InjectionTokens from '../InjectionTokens';
-import type { Repository } from '../interfaces';
+import type { Repository } from '@interfaces';
 import type { UserDocument } from '../models/User';
 
 @Service(InjectionTokens.UserRepository)
