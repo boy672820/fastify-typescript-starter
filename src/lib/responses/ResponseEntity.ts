@@ -1,18 +1,11 @@
 import { z } from 'zod';
+import { ResponseStatus } from '.';
+import responseSchema from './responseSchema';
 
-export enum ResponseStatus {
-  Ok = 'OK',
-  Error = 'ERROR',
-}
-
-export const responseSchema = z.object({
-  responseStatus: z.nativeEnum(ResponseStatus),
-  message: z.string(),
-  data: z.any(),
-});
+const responseEntitySchema = responseSchema(z.unknown());
 
 export default class ResponseEntity<T>
-  implements z.infer<typeof responseSchema>
+  implements z.infer<typeof responseEntitySchema>
 {
   private constructor(
     private readonly _responseStatus: ResponseStatus,
@@ -20,24 +13,20 @@ export default class ResponseEntity<T>
     private readonly _data: T,
   ) {}
 
-  static Ok(): ResponseEntity<null> {
-    return new ResponseEntity<null>(ResponseStatus.Ok, '', null);
-  }
-
-  static OK_WITH_MESSAGE(message: string): ResponseEntity<null> {
-    return new ResponseEntity<null>(ResponseStatus.Ok, message, null);
+  static OK(): ResponseEntity<''> {
+    return new ResponseEntity<''>(ResponseStatus.Ok, '', '');
   }
 
   static OK_WITH_DATA<T>(message: string, data: T): ResponseEntity<T> {
     return new ResponseEntity<T>(ResponseStatus.Ok, message, data);
   }
 
-  static ERROR(): ResponseEntity<null> {
-    return new ResponseEntity<null>(ResponseStatus.Error, '', null);
+  static ERROR(): ResponseEntity<''> {
+    return new ResponseEntity<''>(ResponseStatus.Error, '', '');
   }
 
-  static ERROR_WITH_MESSAGE(message: string): ResponseEntity<null> {
-    return new ResponseEntity<null>(ResponseStatus.Error, message, null);
+  static ERROR_WITH_MESSAGE(message: string): ResponseEntity<''> {
+    return new ResponseEntity<''>(ResponseStatus.Error, message, '');
   }
 
   static ERROR_WITH_DATA<T>(message: string, data: T): ResponseEntity<T> {

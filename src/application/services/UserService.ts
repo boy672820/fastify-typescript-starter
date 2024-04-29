@@ -1,5 +1,6 @@
 import { User } from '@domain/models';
 import { Inject, Service } from 'typedi';
+import { UserEntity } from '../../entities';
 import InjectionTokens from '../../infra/InjectionTokens';
 import type { Repository, UserCreateInput } from '@interfaces';
 
@@ -10,16 +11,14 @@ export default class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserEntity[]> {
     const users = await this.userRepository.findAll();
-    return users;
+    return UserEntity.fromUsers(users);
   }
 
-  async create(input: UserCreateInput): Promise<User> {
+  async create(input: UserCreateInput): Promise<void> {
     const { username, password, nickname } = input;
     const user = User.create({ username, password, nickname });
     await this.userRepository.create(user);
-    delete (user as Partial<Pick<User, 'password'>>).password;
-    return user;
   }
 }

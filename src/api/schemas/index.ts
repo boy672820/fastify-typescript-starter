@@ -1,3 +1,5 @@
+import okResponseSchema from './okResponseSchema';
 import userCreateSchema from './userCreateSchema';
+import usersResponseSchema from './usersResponseSchema';
 
-export { userCreateSchema };
+export { okResponseSchema, userCreateSchema, usersResponseSchema };

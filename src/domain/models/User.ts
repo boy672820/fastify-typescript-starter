@@ -46,4 +46,13 @@ export default class User implements UserProps {
   }
 
   getId = () => this.id.getObjectId();
+
+  toObject = () => ({
+    id: this.id.getObjectId().toString(),
+    username: this.username,
+    nickname: this.nickname,
+    role: this.role,
+    createdDate: this.createdDate.toNative(),
+    updatedDate: this.updatedDate.toNative(),
+  });
 }
