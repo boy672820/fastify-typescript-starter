@@ -1,4 +1,5 @@
+import { responseSchema } from '@lib/responses';
 import { z } from 'zod';
-import { responseSchema } from '../../lib/responses';
 
+// empty
 export default responseSchema(z.string());

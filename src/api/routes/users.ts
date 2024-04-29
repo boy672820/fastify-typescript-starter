@@ -15,7 +15,7 @@ const users: Route = (_fastify, options) => {
 
   fastify.get(
     `${prefix}/users`,
-    { schema: { response: { 200: usersResponseSchema } } },
+    { schema: { tags: ['users'], response: { 200: usersResponseSchema } } },
     async (_, reply) => {
       const userService = Container.get(UserService);
       const users = await userService.findAll();
@@ -25,7 +25,13 @@ const users: Route = (_fastify, options) => {
 
   fastify.post(
     `${prefix}/users`,
-    { schema: { body: userCreateSchema, response: { 201: okResponseSchema } } },
+    {
+      schema: {
+        tags: ['users'],
+        body: userCreateSchema,
+        response: { 201: okResponseSchema },
+      },
+    },
     async (request, reply) => {
       const userService = Container.get(UserService);
       const data = request.body;
