@@ -1,3 +1,5 @@
 import User from './User';
 
-export { User };
+const models = [User];
+
+export { models, User };
