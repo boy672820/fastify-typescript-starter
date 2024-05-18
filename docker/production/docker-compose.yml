@@ -1,0 +1,11 @@
+version: '3'
+services:
+  server:
+    container_name: fastify-typescript-starter
+    image: interactive-fastify-api:latest
+    build:
+      context: ../../
+      dockerfile: docker/production/Dockerfile
+    ports:
+      - '8080:8080'
+    platform: linux/amd64

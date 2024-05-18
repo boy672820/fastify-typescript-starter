@@ -7,11 +7,11 @@
   "scripts": {
     "build:dev": "NODE_ENV=development webpack",
     "build": "NODE_ENV=production webpack",
-    "dev": "concurrently \"NODE_ENV=development webpack --watch\" \"sleep 1 && nodemon\"",
-    "debug": "concurrently \"NODE_ENV=development webpack --watch\" \"sleep 1 && nodemon --inspect\"",
+    "dev": "concurrently \"webpack --watch\" \"sleep 1 && nodemon\"",
+    "debug": "concurrently \"webpack --watch\" \"sleep 1 && nodemon --inspect\"",
+    "prod": "NODE_ENV=production node dist/main.js",
     "test": "jest",
-    "lint": "eslint . --ext .ts",
-    "start": "node dist/main.js"
+    "lint": "eslint . --ext .ts"
   },
   "dependencies": {
     "@fastify/swagger": "^8.14.0",

@@ -40,7 +40,7 @@ server.register(fastifySwagger, {
 });
 server.register(fastifySwaggerUi, {
   routePrefix: '/docs',
-  uiConfig: { docExpansion: 'full', deepLinking: false },
+  uiConfig: { docExpansion: 'list', deepLinking: false },
 });
 
 async function main() {

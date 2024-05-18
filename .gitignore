@@ -33,3 +33,9 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+docker/local/data
+docker/local/mongodb.key
+docker/local/mongodb1
+docker/local/mongodb2
+docker/local/mongodb3

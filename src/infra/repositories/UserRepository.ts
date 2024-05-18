@@ -9,7 +9,7 @@ import type { UserDocument } from '../models/User';
 
 @Service(InjectionTokens.UserRepository)
 export default class UserRepository implements Repository<UserDomain> {
-  constructor(@Inject(User.name) private readonly user: Model<UserDocument>) {}
+  constructor(@Inject(User.modelName) private readonly user: Model<UserDocument>) {}
 
   async findAll(): Promise<UserDomain[]> {
     const users = await this.user.find();

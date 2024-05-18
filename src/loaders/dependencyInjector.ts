@@ -9,7 +9,7 @@ import 'src/infra/repositories/UserRepository';
 
 export default () => {
   models.forEach((Model) => {
-    Container.set(Model.name, Model);
+    Container.set(Model.modelName, Model);
   });
 
   Container.set(InjectionTokens.Logger, logger);
