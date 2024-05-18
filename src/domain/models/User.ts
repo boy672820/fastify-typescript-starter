@@ -22,27 +22,22 @@ export default class User implements UserProps {
 
   static create(props: Pick<UserProps, 'username' | 'password' | 'nickname'>) {
     const saltOrRounds = 10;
-    const user = new User();
-    user.id = ObjectId.create();
-    user.username = props.username;
-    user.password = bcrypt.hashSync(props.password, saltOrRounds);
-    user.nickname = props.nickname || null;
-    user.role = Role.Guest;
-    user.createdDate = LocalDateTime.now();
-    user.updatedDate = LocalDateTime.now();
+    const user = new User({
+      ...props,
+      id: ObjectId.create(),
+      password: bcrypt.hashSync(props.password, saltOrRounds),
+      nickname: props.nickname || null,
+      role: Role.Guest,
+      createdDate: LocalDateTime.now(),
+      updatedDate: LocalDateTime.now(),
+    });
     return user;
   }
 
-  static from(props: UserProps) {
-    const user = new User();
-    user.id = props.id;
-    user.username = props.username;
-    user.password = props.password;
-    user.nickname = props.nickname;
-    user.role = props.role;
-    user.createdDate = props.createdDate;
-    user.updatedDate = props.updatedDate;
-    return user;
+  static from = (props: UserProps) => new User(props);
+
+  private constructor(props: UserProps) {
+    Object.assign(this, props);
   }
 
   getId = () => this.id.getObjectId();
