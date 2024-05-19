@@ -17,7 +17,7 @@
 
 ### [1.1] REST API
 
-FTS(Fastify Typescript Starter)는 REST API를 개발하기 위해 구조화 되어있습니다.
+현재 프로젝트는 REST API를 개발하기 위해 구조화 되어있습니다.
 
 이제 REST API를 작성하는 방법에 대해 알려드리겠습니다. 폴더 구조는 다음과 같습니다.
 
@@ -162,9 +162,9 @@ fastify.post(
 );
 ```
 
-#### Open API
+### 2. Open API
 
-Open API(구 Swagger) 문서를 생성해줍니다.
+OpenAPI 문서를 생성해줍니다.
 
 > API 라우트에 스키마를 작성하면 자동으로 Open API 문서에 등록됩니다.
 
@@ -172,4 +172,15 @@ Open API(구 Swagger) 문서를 생성해줍니다.
 
 ![assets/openapi-example.png](assets/openapi-example.png)
 
-## 2. Layerd Architecture
+## 3. Layerd Architecture
+
+현재 프로젝트는 계층화 아키텍처로 설계되었습니다.
+
+아래 그림과 같이 Presentation, Application, Domain Model, Persistence 계층으로 분리되어 있습니다.
+
+![assets/layer-architecture.png](assets/layer-architecture.png)
+
+1. **Presentation layer**: 프로젝트에서 프레젠테이션 계층은 API 엔드포인트와 뷰 모델에 해당합니다.
+2. **Application layer**: 애플리케이션 계층은 비즈니스 로직을 수행하는 계층입니다. 주로 도메인 객체를 생성하고 Persistence 계층에 도메인을 넘겨줍니다.
+3. **Domain layer**: 애플리케이션 계층이 좀 더 추상된 비즈니스 로직을 작성한다면 도메인 계층은 문제의 순수 비즈니스 로직을 수행합니다.
+4. **Persistence layer**: 영속성 계층은 데이터베이스에 데이터를 가져오거나 생성, 수정, 삭제를 수행합니다.
