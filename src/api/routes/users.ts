@@ -1,13 +1,10 @@
-import { ResponseEntity } from '@lib/responses';
-import UserService from '@app/services/UserService';
+import UserService from '@domain/services/UserService';
 import Container from 'typedi';
-import { Route } from '../router';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import {
-  okResponseSchema,
-  userCreateSchema,
-  usersResponseSchema,
-} from '../schemas';
+import { Route } from '../router';
+import { UserResponse, schemas } from '../responses';
+import { userCreateSchema } from '../schemas';
+import { FindAllUsersUseCase } from '../../application/usecases';
 
 const users: Route = (_fastify, options) => {
   const { prefix } = options;
@@ -15,11 +12,11 @@ const users: Route = (_fastify, options) => {
 
   fastify.get(
     `${prefix}/users`,
-    { schema: { tags: ['users'], response: { 200: usersResponseSchema } } },
+    { schema: { tags: ['users'], response: { 200: schemas.users } } },
     async (_, reply) => {
-      const userService = Container.get(UserService);
-      const users = await userService.findAll();
-      return reply.code(200).send(ResponseEntity.OK_WITH_DATA('', { users }));
+      const findAllUsersUseCase = Container.get(FindAllUsersUseCase);
+      const users = await findAllUsersUseCase.execute();
+      return reply.code(200).send(UserResponse.domainToUsers(users));
     },
   );
 
@@ -29,7 +26,7 @@ const users: Route = (_fastify, options) => {
       schema: {
         tags: ['users'],
         body: userCreateSchema,
-        response: { 201: okResponseSchema },
+        response: { 201: schemas.userCreate },
       },
     },
     async (request, reply) => {
@@ -40,7 +37,7 @@ const users: Route = (_fastify, options) => {
         password: data.password,
         nickname: data?.nickname,
       });
-      return reply.code(201).send(ResponseEntity.OK());
+      return reply.code(201).send(UserResponse.created());
     },
   );
 };

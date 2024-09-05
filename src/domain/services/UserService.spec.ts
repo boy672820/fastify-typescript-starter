@@ -1,22 +1,15 @@
 import { User } from '@domain/models';
-import Container from 'typedi';
-import { mockDeep } from 'jest-mock-extended';
+import { mock, MockProxy } from 'jest-mock-extended';
+import { UserRepository } from '../repositories';
 import UserService from './UserService';
-import type { Repository, UserCreateInput } from '@interfaces';
-import InjectionTokens from '../../infra/InjectionTokens';
-
-const userRepositoryMock = mockDeep<Repository<User>>();
 
 describe('UserService', () => {
+  let userRepository: MockProxy<UserRepository>;
   let userService: UserService;
 
   beforeEach(() => {
-    Container.set(InjectionTokens.UserRepository, userRepositoryMock);
-    userService = Container.get(UserService);
-  });
-
-  afterEach(() => {
-    Container.reset();
+    userRepository = mock<UserRepository>();
+    userService = new UserService(userRepository);
   });
 
   it('should be defined', () => {
@@ -25,14 +18,14 @@ describe('UserService', () => {
 
   describe('findAll', () => {
     it('should return all users', async () => {
-      userRepositoryMock.findAll.mockResolvedValueOnce([]);
+      userRepository.findAll.mockResolvedValueOnce([]);
 
       await expect(userService.findAll()).resolves.toEqual([]);
     });
   });
 
   it('should create a user', async () => {
-    const input: UserCreateInput = {
+    const input = {
       username: 'test',
       password: 'Test@123',
       nickname: 'Tester',
@@ -42,6 +35,6 @@ describe('UserService', () => {
 
     await expect(userService.create(input)).resolves.toBeUndefined();
 
-    expect(userRepositoryMock.create).toHaveBeenCalledWith(user);
+    expect(userRepository.create).toHaveBeenCalledWith(user);
   });
 });

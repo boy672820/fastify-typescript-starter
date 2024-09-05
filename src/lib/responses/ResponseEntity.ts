@@ -7,10 +7,10 @@ const responseEntitySchema = responseSchema(z.unknown());
 export default class ResponseEntity<T>
   implements z.infer<typeof responseEntitySchema>
 {
-  private constructor(
-    private readonly _responseStatus: ResponseStatus,
-    private readonly _message: string,
-    private readonly _data: T,
+  protected constructor(
+    protected readonly _responseStatus: ResponseStatus,
+    protected readonly _message: string,
+    protected readonly _data: T,
   ) {}
 
   static OK(): ResponseEntity<''> {
